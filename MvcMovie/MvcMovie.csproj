@@ -202,6 +202,7 @@
     <Content Include="Views\Bikes\Details.cshtml" />
     <Content Include="Views\Bikes\Edit.cshtml" />
     <Content Include="Views\Bikes\Index.cshtml" />
+    <Content Include="Views\Bikes\welcome.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -14,6 +14,14 @@ namespace MvcMovie.Controllers
     {
         private BikeDBContext db = new BikeDBContext();
 
+        public ActionResult Welcome(string name, int numTimes = 1)
+        {
+            ViewBag.Message = "Hello " + name;
+            ViewBag.NumTimes = numTimes;
+
+            return View();
+        }
+
         // GET: Bikes
         public ActionResult Index()
         {
