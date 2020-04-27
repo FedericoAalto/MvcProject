@@ -10,116 +10,107 @@ using MvcMovie.Models;
 
 namespace MvcMovie.Controllers
 {
-    public class MoviesController : Controller
+    public class BikesController : Controller
     {
-        private MovieDBContext db = new MovieDBContext();
+        private BikeDBContext db = new BikeDBContext();
 
-        // GET: Movies
-        public ActionResult Index(string id)
+        // GET: Bikes
+        public ActionResult Index()
         {
-            string searchString = id;
-            var movies = from m in db.Movies
-                         select m;
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                movies = movies.Where(s => s.Title.Contains(searchString));
-            }
-
-            return View(movies);
+            return View(db.Bikes.ToList());
         }
 
-        // GET: Movies/Details/5
+        // GET: Bikes/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movie movie = db.Movies.Find(id);
-            if (movie == null)
+            Bike bike = db.Bikes.Find(id);
+            if (bike == null)
             {
                 return HttpNotFound();
             }
-            return View(movie);
+            return View(bike);
         }
 
-        // GET: Movies/Create
+        // GET: Bikes/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Movies/Create
+        // POST: Bikes/Create
         // Per proteggere da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
         // Per ulteriori dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Title,ReleaseDate,Genre,Price")] Movie movie)
+        public ActionResult Create([Bind(Include = "ID,Marca,Modello,Litri")] Bike bike)
         {
             if (ModelState.IsValid)
             {
-                db.Movies.Add(movie);
+                db.Bikes.Add(bike);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(movie);
+            return View(bike);
         }
 
-        // GET: Movies/Edit/5
+        // GET: Bikes/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movie movie = db.Movies.Find(id);
-            if (movie == null)
+            Bike bike = db.Bikes.Find(id);
+            if (bike == null)
             {
                 return HttpNotFound();
             }
-            return View(movie);
+            return View(bike);
         }
 
-        // POST: Movies/Edit/5
+        // POST: Bikes/Edit/5
         // Per proteggere da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
         // Per ulteriori dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Title,ReleaseDate,Genre,Price")] Movie movie)
+        public ActionResult Edit([Bind(Include = "ID,Marca,Modello,Litri")] Bike bike)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(movie).State = EntityState.Modified;
+                db.Entry(bike).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(movie);
+            return View(bike);
         }
 
-        // GET: Movies/Delete/5
+        // GET: Bikes/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movie movie = db.Movies.Find(id);
-            if (movie == null)
+            Bike bike = db.Bikes.Find(id);
+            if (bike == null)
             {
                 return HttpNotFound();
             }
-            return View(movie);
+            return View(bike);
         }
 
-        // POST: Movies/Delete/5
+        // POST: Bikes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Movie movie = db.Movies.Find(id);
-            db.Movies.Remove(movie);
+            Bike bike = db.Bikes.Find(id);
+            db.Bikes.Remove(bike);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
