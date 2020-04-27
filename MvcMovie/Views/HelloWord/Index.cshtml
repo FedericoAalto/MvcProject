@@ -1,20 +1,18 @@
-﻿@*@{
-            Layout = "~/Views/Shared/_Layout.cshtml";
-    }*@
-
+﻿@model IEnumerable<MvcMovie.Models.Movie>
 
 @{
-    ViewBag.Title = "lista film 2020 avventura";
+    ViewBag.Title = "Index";
 }
 
-<h2>lista film</h2>
+<h2>Index</h2>
 
-<p>Ciao questo è il mio template </p>
-<br />
-<p>di prova di oggi</p>
-<br />
-<p>mattina </p>
-<br />
-<p>stamattina quasi ora di pranzo</p>
-
-
+<p>
+    @Html.ActionLink("Create New", "Create")
+    @using (Html.BeginForm())
+    {
+<p>
+        Title: @Html.TextBox("SearchString") <br />
+        <input type="submit" value="Filter" />
+    </p>
+}
+    </p>

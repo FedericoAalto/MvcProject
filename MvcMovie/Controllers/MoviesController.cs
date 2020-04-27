@@ -15,9 +15,18 @@ namespace MvcMovie.Controllers
         private MovieDBContext db = new MovieDBContext();
 
         // GET: Movies
-        public ActionResult Index()
+        public ActionResult Index(string id)
         {
-            return View(db.Movies.ToList());
+            string searchString = id;
+            var movies = from m in db.Movies
+                         select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                movies = movies.Where(s => s.Title.Contains(searchString));
+            }
+
+            return View(movies);
         }
 
         // GET: Movies/Details/5
@@ -112,7 +121,7 @@ namespace MvcMovie.Controllers
             Movie movie = db.Movies.Find(id);
             db.Movies.Remove(movie);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index");D:\Aalto\VS project\MvcMovie\MvcMovie\Web.config
         }
 
         protected override void Dispose(bool disposing)
